@@ -22,7 +22,7 @@ if [[ "${ARM}" = yes ]]; then
 	fi
 else
 	if which iproxy >> /dev/null; then
-		iproxy 22 44 >> /dev/null 2>/dev/null &
+		iproxy 4444 44 >> /dev/null 2>/dev/null &
 	else
 		echo "Error: iproxy not found"
 		exit 1
@@ -101,7 +101,7 @@ clear
 if [[ ! "${ARM}" = yes ]]; then
 	echo "Đang sao chép qua thiết bị"
 	echo "password: alpine"
-	scp -P22 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" bootstrap_1500.tar.gz bootstrap_1600.tar.gz bootstrap_1700.tar.gz migration xyz.willy.zebra_1.1.13_iphoneos-arm.deb  LiRa-device-deploy.sh root@127.0.0.1:/var/root/
+	scp -P444 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" bootstrap_1500.tar.gz bootstrap_1600.tar.gz bootstrap_1700.tar.gz migration xyz.willy.zebra_1.1.13_iphoneos-arm.deb  LiRa-device-deploy.sh root@127.0.0.1:/var/root/
 	clear
 fi
 echo "Cài đặt bootstrap và Zebra"
@@ -109,7 +109,7 @@ if [[ "${ARM}" = yes ]]; then
 	zsh ./LiRa-device-deploy.sh
 else
 	echo "password: alpine"
-	ssh -p22 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" root@127.0.0.1 "zsh /var/root/LiRa-device-deploy.sh"
+	ssh -p4444 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" root@127.0.0.1 "zsh /var/root/LiRa-device-deploy.sh"
 	echo "Thành Công:)"
 	killall iproxy
 fi
